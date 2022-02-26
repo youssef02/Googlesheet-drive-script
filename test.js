@@ -4,6 +4,8 @@
   var FolderID = "FolderID";
   //subfolders
   var subFolder = ["Folder1", "Folder2", "Folder3"]; 
+  //send email to students
+  var sendmail = true;
   
   function getData() {
     var sheet = SpreadsheetApp.getActiveSheet();
@@ -53,7 +55,35 @@
           //create file with name Student_Profesor
           var file = subfolder.createFile(Student + "_" + Profesor,'Empty');
           //what next?
-          console.log(file.name);
+          console.log(file);
+          //share the subfolder with the student
+          var share = subFolder.addEditor(StudentEmail);
+          //get url of the subfolder
+          var url = subfolder.getUrl();
+
+
+
+
+          //if sendemail is true
+          if (sendmail) {
+
+            //send an email to student
+          var subject = "Your file is ready";
+          var body = `Hi ${Student}, <br/>
+
+          Your Professor ${Profesor} has uploaded a file to the folder ${Team}_${Profesor}. <br/>
+          You can access the file by clicking on the link below: <br/>
+          <a href="${url}">${url}</a> <br/>
+          
+          
+          `;
+          var email = StudentEmail;
+          MailApp.sendEmail(email, subject, body);
+
+          }
+
+          
+
         
       }
 
