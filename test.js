@@ -1,4 +1,4 @@
-//using google sheets app script to get data from google sheets
+  //using google sheets app script to get data from google sheets
   
   //MAinFolder
   var FolderID = "FolderID";
@@ -30,10 +30,11 @@
     //check if Folder Team_Profesor exists or not
     var folder = maindir.getFoldersByName(Team + "_" + Profesor);
     var found = folder.hasNext();
-    console.log(found);
+    console.log("Is there folder:"+found);
     if (!found) {
       //create folder Team_Profesor
       var folder = maindir.createFolder(Team + "_" + Profesor);
+      var folder = maindir.getFoldersByName(Team + "_" + Profesor);
     }
     
       //now the folder exists
@@ -42,15 +43,17 @@
       for (var j = 0; j < subFolder.length; j++) {
         var subfolder = folder.getFoldersByName(subFolder[j]);
         var foundsub = subfolder.hasNext();
-        console.log(foundsub);
+        console.log("Is there subfolder:"+foundsub);
         if (!foundsub) {
-          var subfolder = folder.createFolder(subFolder[j]);
+           var subfolder = folder.createFolder(subFolder[j]);
+           var subfolder = folder.getFoldersByName(subFolder[j]);
         }
         
-          var subfolder = subfolder.next();
+        var subfolder = subfolder.next();
           //create file with name Student_Profesor
-          var file = subfolder.createFile(Student + "_" + Profesor);
+          var file = subfolder.createFile(Student + "_" + Profesor,'Empty');
           //what next?
+          console.log(file.name);
         
       }
 
